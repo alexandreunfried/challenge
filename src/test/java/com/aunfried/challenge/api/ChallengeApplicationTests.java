@@ -1,4 +1,4 @@
-package com.aunfried.challenge.api.challenge;
+package com.aunfried.challenge.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

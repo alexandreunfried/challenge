@@ -1,4 +1,4 @@
-package com.aunfried.challenge.api.challenge;
+package com.aunfried.challenge.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
