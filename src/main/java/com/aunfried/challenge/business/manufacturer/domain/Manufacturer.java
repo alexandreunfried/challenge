@@ -1,4 +1,4 @@
-package com.aunfried.challenge.model;
+package com.aunfried.challenge.business.manufacturer.domain;
 
 import java.io.Serializable;
 

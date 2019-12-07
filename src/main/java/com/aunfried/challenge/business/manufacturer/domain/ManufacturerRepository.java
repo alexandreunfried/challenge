@@ -1,6 +1,4 @@
-package com.aunfried.challenge.repository;
-
-import com.aunfried.challenge.model.Manufacturer;
+package com.aunfried.challenge.business.manufacturer.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
