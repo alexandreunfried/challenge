@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aunfried.challenge.business.manufacturer.ManufacturerService;
@@ -33,8 +34,8 @@ public class ManufacturerController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Manufacturer>> list() {
-		List<Manufacturer> list = manufacturerService.list();
+	public ResponseEntity<List<Manufacturer>> list(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+		List<Manufacturer> list = manufacturerService.list(page, size);
 		
 		return ResponseEntity.ok(list);
 	}
