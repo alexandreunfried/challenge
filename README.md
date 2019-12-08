@@ -18,7 +18,7 @@ Usuário e senha do banco de dados criado:
 `spring.datasource.password=postgres`
 
 ----------
-##Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta##
+## Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta
 
 - Listagem dos produtos cadastrados
 
