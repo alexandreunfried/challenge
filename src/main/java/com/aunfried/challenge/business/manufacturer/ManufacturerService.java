@@ -37,9 +37,9 @@ public class ManufacturerService {
 	}
 
 	@Transactional
-	public Long create(ManufacturerCreateUpdateDTO manufacturerCreateUpdate) {
+	public Long create(ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
 		Manufacturer manufacturer = new Manufacturer();
-		manufacturer.setName(manufacturerCreateUpdate.getName());
+		manufacturer.setName(manufacturerCreateUpdateDTO.getName());
 
 		manufacturer = manufacturerRepository.save(manufacturer);
 		return manufacturer.getId();

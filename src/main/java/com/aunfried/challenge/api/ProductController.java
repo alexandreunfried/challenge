@@ -15,46 +15,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aunfried.challenge.business.manufacturer.ManufacturerService;
-import com.aunfried.challenge.business.manufacturer.domain.Manufacturer;
-import com.aunfried.challenge.business.manufacturer.dto.ManufacturerCreateUpdateDTO;
+import com.aunfried.challenge.business.product.ProductService;
+import com.aunfried.challenge.business.product.domain.Product;
+import com.aunfried.challenge.business.product.dto.ProductCreateUpdateDTO;
+import com.aunfried.challenge.business.product.dto.SimpleProductDTO;
 
 @RestController
-@RequestMapping("/manufacturers")
-public class ManufacturerController {
+@RequestMapping("/products")
+public class ProductController {
 
 	@Autowired
-	private ManufacturerService manufacturerService;
+	private ProductService productService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Manufacturer> get(@PathVariable Long id) {
-		Manufacturer manufacturer = manufacturerService.get(id);
+	public ResponseEntity<Product> get(@PathVariable Long id) {
+		Product product = productService.get(id);
 
-		return ResponseEntity.ok(manufacturer);
+		return ResponseEntity.ok(product);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Manufacturer>> list(@RequestParam("page") Integer page,
-			@RequestParam("size") Integer size) {
-		List<Manufacturer> list = manufacturerService.list(page, size);
+	public ResponseEntity<List<SimpleProductDTO>> list(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+		List<SimpleProductDTO> list = productService.list(page, size);
 
 		return ResponseEntity.ok(list);
 	}
 
 	@PostMapping
-	public ResponseEntity<Long> create(
-			@RequestBody @Validated ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
+	public ResponseEntity<Long> create(@RequestBody @Validated ProductCreateUpdateDTO productCreateUpdateDTO) {
 
-		Long id = manufacturerService.create(manufacturerCreateUpdateDTO);
+		Long id = productService.create(productCreateUpdateDTO);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(id);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable Long id,
-			@RequestBody @Validated ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
+			@RequestBody @Validated ProductCreateUpdateDTO productCreateUpdateDTO) {
 
-		manufacturerService.update(id, manufacturerCreateUpdateDTO);
+		productService.update(id, productCreateUpdateDTO);
 
 		return ResponseEntity.noContent().build();
 	}
