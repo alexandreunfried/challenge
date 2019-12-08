@@ -4,13 +4,29 @@ A aplicação é uma API de produtos e pedidos de compras que possam ser confirm
 
 ----------
 
+Para executar a API é necessário criar um banco de dados vazio no postgres e substituir alguns dados no application.properties
+
+Porta que deseja rodar a aplicação, no exemplo a porta é 10000:
+server.port=10000 
+
+Endereço do banco de dados:
+spring.datasource.url=jdbc:postgresql://localhost:5432/challenge?useUnicode=true&characterEncoding=UTF-8
+Trocar localhost:5432/challenge pelo endereço do banco de dados em branco que criou
+
+Usuário e senha do banco de dados criado:
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+Trocar o postgres por seu usuário e senha
+
+----------
+
 - Listagem dos produtos cadastrados
 
 Solicitação:
 GET localhost:10000/products?page=0&size=10
 
-page = Número da página
-size = Quantidade de resultados por página
+page = Número da página, size = Quantidade de resultados por página
 
 Resposta:
 
