@@ -66,6 +66,19 @@ public class ProductService {
 
 		productRepository.save(product);
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		Optional<Product> productOptional = productRepository.findById(id);
+
+		if (!productOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Produto não encontrado");
+		}
+
+		Product product = productOptional.get();
+
+		productRepository.delete(product);
+	}
 
 	protected void mapperProductCreateUpdateDTOToProduct(Product product, ProductCreateUpdateDTO productCreateUpdateDTO) {
 

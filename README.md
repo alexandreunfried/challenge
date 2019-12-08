@@ -6,6 +6,12 @@ A aplicação é uma API de produtos e pedidos de compras que possam ser confirm
 
 - Listagem dos produtos cadastrados
 
+Solicitação:
+GET localhost:10000/products?page=0&size=10
+
+page = Número da página
+size = Quantidade de resultados por página
+
 Resposta:
 
 ```json
@@ -22,6 +28,9 @@ Resposta:
 ```
 
 - Consulta dos detalhes de um produto usando o identificador
+
+Solicitação:
+GET localhost:10000/products/25
 
 Resposta:
 
@@ -42,7 +51,8 @@ Resposta:
 - Inserção de novos produtos
 
 Solicitação:
-
+POST localhost:10000/products
+Body:
 ```json
 {
   "name": "Grape juice",
@@ -56,7 +66,8 @@ Solicitação:
 - Atualização de produtos usando o seu identificador
 
 Solicitação:
-
+PUT localhost:10000/products/25
+Body:
 ```json
 {
   "name": "Grape juice",
@@ -84,6 +95,10 @@ Resposta:
 ```
 
 - Remoção de um produto
+
+Solicitação:
+DELETE localhost:10000/products/25
+
 - Cadastro de um pedido
 
 Solicitação:
