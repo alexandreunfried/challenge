@@ -15,11 +15,10 @@ Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco q
 
 Usuário e senha do banco de dados criado:
 `spring.datasource.username=postgres`
-`spring.datasource.password=postgres
-`
+`spring.datasource.password=postgres`
 
 ----------
-Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta.
+##Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta##
 
 - Listagem dos produtos cadastrados
 
