@@ -14,5 +14,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query("select new com.aunfried.challenge.business.product.dto.SimpleProductDTO(p.id, p.name) from Product p order by p.id ASC")
     public List<SimpleProductDTO> findAllOrderById(Pageable page);
-
+	
+	@Query("select count(p) from Product p where p.manufacturer.id = ?1")
+    public Integer countByManufacturer(Long idManufacturer);
+	
 }

@@ -53,7 +53,7 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void update(Long id, ProductCreateUpdateDTO productCreateUpdateDTO) {
+	public Product update(Long id, ProductCreateUpdateDTO productCreateUpdateDTO) {
 		Optional<Product> productOptional = productRepository.findById(id);
 
 		if (!productOptional.isPresent()) {
@@ -64,7 +64,7 @@ public class ProductService {
 
 		mapperProductCreateUpdateDTOToProduct(product, productCreateUpdateDTO);
 
-		productRepository.save(product);
+		return productRepository.save(product);
 	}
 	
 	@Transactional

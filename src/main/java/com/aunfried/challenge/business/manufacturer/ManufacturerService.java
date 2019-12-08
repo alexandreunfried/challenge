@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aunfried.challenge.business.manufacturer.domain.Manufacturer;
 import com.aunfried.challenge.business.manufacturer.domain.ManufacturerRepository;
 import com.aunfried.challenge.business.manufacturer.dto.ManufacturerCreateUpdateDTO;
+import com.aunfried.challenge.business.product.domain.ProductRepository;
+import com.aunfried.challenge.config.exception.BadRequestException;
 import com.aunfried.challenge.config.exception.ErrorCode;
 import com.aunfried.challenge.config.exception.NotFoundException;
 
@@ -19,6 +21,9 @@ public class ManufacturerService {
 
 	@Autowired
 	private ManufacturerRepository manufacturerRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Transactional(readOnly = true)
 	public Manufacturer get(Long id) {
@@ -46,7 +51,7 @@ public class ManufacturerService {
 	}
 
 	@Transactional
-	public void update(Long id, ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
+	public Manufacturer update(Long id, ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
 		Optional<Manufacturer> manufacturerOptional = manufacturerRepository.findById(id);
 
 		if (!manufacturerOptional.isPresent()) {
@@ -56,7 +61,26 @@ public class ManufacturerService {
 		Manufacturer manufacturer = manufacturerOptional.get();
 		manufacturer.setName(manufacturerCreateUpdateDTO.getName());
 
-		manufacturerRepository.save(manufacturer);
+		return manufacturerRepository.save(manufacturer);
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+		Optional<Manufacturer> manufacturerOptional = manufacturerRepository.findById(id);
+
+		if (!manufacturerOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Fabricante não encontrado");
+		}
+		
+		Integer coutProductsByManufacturer = productRepository.countByManufacturer(id);
+		
+		if(coutProductsByManufacturer > 0) {
+			throw new BadRequestException(ErrorCode.BAD_REQUEST, "Existem produtos com este fabricante");
+		}
+
+		Manufacturer manufacturer = manufacturerOptional.get();
+
+		manufacturerRepository.delete(manufacturer);
 	}
 
 }

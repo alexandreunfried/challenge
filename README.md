@@ -20,10 +20,86 @@ Usuário e senha do banco de dados criado:
 ----------
 ## Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta
 
+### Fabricantes
+
+- Listagem dos fabricantes cadastrados
+
+Solicitação:
+`GET localhost:10000/manufacturers?page=0&size=10`
+
+page = Número da página, size = Quantidade de resultados por página
+
+Resposta:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Frimesa"
+  },
+  {
+    "id": 2,
+    "name": "Quality farm goods"
+  }
+]
+```
+
+- Consulta dos detalhes de um fabricante usando o identificador
+
+Solicitação:
+`GET localhost:10000/manufacturers/2`
+
+Resposta:
+
+```json
+{
+    "id": 2,
+    "name": "Quality farm goods"
+}
+```
+
+- Inserção de novos fabricantes
+
+Solicitação:
+`POST localhost:10000/manufacturers`
+Body:
+```json
+{
+  "name": "Quality farm goods",
+}
+```
+
+- Atualização de fabricante usando o seu identificador
+
+Solicitação:
+`PUT localhost:10000/manufacturers/2`
+Body:
+```json
+{
+  "name": "Quality farm goods",
+}
+```
+
+Resposta:
+
+```json
+{
+    "id": 2,
+    "name": "Quality farm goods"
+}
+```
+
+- Remoção de um fabricante
+
+Solicitação:
+`DELETE localhost:10000/manufacturers/2`
+
+### Produtos
+
 - Listagem dos produtos cadastrados
 
 Solicitação:
-GET localhost:10000/products?page=0&size=10
+`GET localhost:10000/products?page=0&size=10`
 
 page = Número da página, size = Quantidade de resultados por página
 
@@ -45,7 +121,7 @@ Resposta:
 - Consulta dos detalhes de um produto usando o identificador
 
 Solicitação:
-GET localhost:10000/products/25
+`GET localhost:10000/products/25`
 
 Resposta:
 
@@ -66,7 +142,7 @@ Resposta:
 - Inserção de novos produtos
 
 Solicitação:
-POST localhost:10000/products
+`POST localhost:10000/products`
 Body:
 ```json
 {
@@ -81,7 +157,7 @@ Body:
 - Atualização de produtos usando o seu identificador
 
 Solicitação:
-PUT localhost:10000/products/25
+`PUT localhost:10000/products/25`
 Body:
 ```json
 {
@@ -112,7 +188,9 @@ Resposta:
 - Remoção de um produto
 
 Solicitação:
-DELETE localhost:10000/products/25
+`DELETE localhost:10000/products/25`
+
+----------
 
 - Cadastro de um pedido
 

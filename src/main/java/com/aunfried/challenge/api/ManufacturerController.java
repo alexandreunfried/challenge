@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,10 +52,18 @@ public class ManufacturerController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id,
+	public ResponseEntity<Manufacturer> update(@PathVariable Long id,
 			@RequestBody @Validated ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
 
-		manufacturerService.update(id, manufacturerCreateUpdateDTO);
+		Manufacturer manufacturer = manufacturerService.update(id, manufacturerCreateUpdateDTO);
+
+		return ResponseEntity.ok(manufacturer);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+
+		manufacturerService.delete(id);
 
 		return ResponseEntity.noContent().build();
 	}
