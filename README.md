@@ -4,7 +4,7 @@ A aplicação é uma API de produtos e pedidos de compras que possam ser confirm
 
 Para executar a API é necessário criar um banco de dados vazio no postgresql e substituir alguns dados no application.properties
 
-- Porta que deseja rodar a aplicação:
+- Porta que deseja rodar a aplicação:  
 `server.port=10000` 
 
 - Endereço do banco de dados:  
@@ -191,7 +191,7 @@ Resposta:
 Solicitação:
 `DELETE localhost:10000/products/25`
 
-----------
+### Pedidos
 
 - Cadastro de um pedido
 
