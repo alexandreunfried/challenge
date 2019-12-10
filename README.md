@@ -24,12 +24,12 @@ Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco q
 
 - Listagem dos fabricantes cadastrados
 
- - Solicitação:
+Solicitação:
 `GET localhost:10000/manufacturers?page=0&size=10`
 
 page = Número da página, size = Quantidade de resultados por página
 
- - Resposta:
+Resposta:
 
 ```json
 [
@@ -46,10 +46,10 @@ page = Número da página, size = Quantidade de resultados por página
 
 - Consulta dos detalhes de um fabricante usando o identificador
 
- - Solicitação:
+Solicitação:
 `GET localhost:10000/manufacturers/2`
 
- - Resposta:
+Resposta:
 
 ```json
 {
@@ -60,9 +60,9 @@ page = Número da página, size = Quantidade de resultados por página
 
 - Inserção de novos fabricantes
 
- - Solicitação:
+Solicitação:
 `POST localhost:10000/manufacturers`
- - Body:
+Body:
 ```json
 {
   "name": "Quality farm goods",
@@ -71,16 +71,16 @@ page = Número da página, size = Quantidade de resultados por página
 
 - Atualização de fabricante usando o seu identificador
 
- - Solicitação:
+Solicitação:
 `PUT localhost:10000/manufacturers/2`
- - Body:
+Body:
 ```json
 {
   "name": "Quality farm goods",
 }
 ```
 
- - Resposta:
+Resposta:
 
 ```json
 {
@@ -91,7 +91,7 @@ page = Número da página, size = Quantidade de resultados por página
 
 - Remoção de um fabricante
 
- - Solicitação:
+Solicitação:
 `DELETE localhost:10000/manufacturers/2`
 
 ### Produtos
