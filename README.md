@@ -9,9 +9,9 @@ Para executar a API é necessário criar um banco de dados vazio no postgresql e
 - Porta que deseja rodar a aplicação:
 `server.port=10000` 
 
-- Endereço do banco de dados:
-`spring.datasource.url=jdbc:postgresql://localhost:5432/challenge?useUnicode=true&characterEncoding=UTF-8`
-Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco que criou
+- Endereço do banco de dados:  
+`spring.datasource.url=jdbc:postgresql://localhost:5432/challenge?useUnicode=true&characterEncoding=UTF-8`  
+Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco que criou  
 
 - Usuário e senha do banco de dados criado:
 `spring.datasource.username=postgres`
