@@ -80,7 +80,7 @@ public class OrderService {
 		return orderRecord.getId();
 	}
 
-	@Transactional
+	@Transactional(readOnly=true)
 	public OrderDTO get(Long id) {
 		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
 
@@ -100,6 +100,32 @@ public class OrderService {
 		orderDTO.setProducts(mapperToOrderRecordProductDTO(orderRecordProducts));
 
 		return orderDTO;
+	}
+	
+	@Transactional
+	public void cancel(Long id) {
+		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
+
+		if (!orderOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
+		}
+
+		orderOptional.get().setStatus(Const.STATUS_CANCELED);
+		
+		orderRecordRepository.save(orderOptional.get());
+	}
+	
+	@Transactional
+	public void confirm(Long id) {
+		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
+
+		if (!orderOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
+		}
+
+		orderOptional.get().setStatus(Const.STATUS_CONFIRMED);
+		
+		orderRecordRepository.save(orderOptional.get());
 	}
 
 	protected List<OrderRecordProductDTO> mapperToOrderRecordProductDTO(List<OrderRecordProduct> orderRecordProducts) {

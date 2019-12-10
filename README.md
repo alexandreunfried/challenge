@@ -272,5 +272,9 @@ Resposta:
 ```
 
 - Cancelamento de um pedido
+Solicitação:
+`PUT localhost:10000/orders/cancel/2`
 
 - Confirmação de um pedido
+Solicitação:
+`PUT localhost:10000/orders/confirm/2`
