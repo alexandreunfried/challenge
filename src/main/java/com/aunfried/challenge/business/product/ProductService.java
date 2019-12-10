@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aunfried.challenge.business.manufacturer.ManufacturerService;
 import com.aunfried.challenge.business.manufacturer.domain.Manufacturer;
+import com.aunfried.challenge.business.orderrecordproduct.dto.OrderRecordProductCreateDTO;
 import com.aunfried.challenge.business.product.domain.Product;
 import com.aunfried.challenge.business.product.domain.ProductRepository;
 import com.aunfried.challenge.business.product.dto.ProductCreateUpdateDTO;
@@ -35,6 +36,17 @@ public class ProductService {
 		}
 
 		return productOptional.get();
+	}
+	
+	@Transactional(readOnly = true)
+	public Double getUnitPrice(Long id) {
+		Optional<Double> unitPriceOptional = productRepository.findUnitPriceById(id);
+
+		if (!unitPriceOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Produto não encontrado");
+		}
+
+		return unitPriceOptional.get();
 	}
 
 	@Transactional(readOnly = true)
@@ -66,7 +78,7 @@ public class ProductService {
 
 		return productRepository.save(product);
 	}
-	
+
 	@Transactional
 	public void delete(Long id) {
 		Optional<Product> productOptional = productRepository.findById(id);
@@ -80,7 +92,8 @@ public class ProductService {
 		productRepository.delete(product);
 	}
 
-	protected void mapperProductCreateUpdateDTOToProduct(Product product, ProductCreateUpdateDTO productCreateUpdateDTO) {
+	protected void mapperProductCreateUpdateDTOToProduct(Product product,
+			ProductCreateUpdateDTO productCreateUpdateDTO) {
 
 		Manufacturer manufacturer = manufacturerService.get(productCreateUpdateDTO.getIdManufacturer());
 
@@ -90,6 +103,17 @@ public class ProductService {
 		product.setManufacturer(manufacturer);
 		product.setUnitPrice(productCreateUpdateDTO.getUnitPrice());
 
+	}
+
+	@Transactional(readOnly = true)
+	public Double getAmount(List<OrderRecordProductCreateDTO> products) {
+		Double amount = 0.0;
+
+		for (int i = 0; i < products.size(); i++) {
+			amount += getUnitPrice(products.get(i).getId()) * products.get(i).getUnits();
+		}
+
+		return amount;
 	}
 
 }

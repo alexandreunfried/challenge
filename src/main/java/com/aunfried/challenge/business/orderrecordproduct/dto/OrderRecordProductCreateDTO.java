@@ -1,4 +1,4 @@
-package com.aunfried.challenge.business.orderrercordproduct.dto;
+package com.aunfried.challenge.business.orderrecordproduct.dto;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,6 +11,6 @@ public class OrderRecordProductCreateDTO {
 	private Long id;
 	
 	@NotNull
-	private Integer units;
+	private Double units;
 	
 }

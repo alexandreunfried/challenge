@@ -1,4 +1,4 @@
-package com.aunfried.challenge.business.orderrercordproduct.domain;
+package com.aunfried.challenge.business.orderrecordproduct.domain;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Embeddable
-public class OrderRercordProductId implements Serializable {
+public class OrderRecordProductId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,10 +30,10 @@ public class OrderRercordProductId implements Serializable {
 	@Column(name = "id_product")
 	private Long idProduct;
 
-	public OrderRercordProductId() {
+	public OrderRecordProductId() {
 	}
 
-	public OrderRercordProductId(Long idOrderRecord, Long idProduct) {
+	public OrderRecordProductId(Long idOrderRecord, Long idProduct) {
 		this.idOrderRecord = idOrderRecord;
 		this.idProduct = idProduct;
 	}

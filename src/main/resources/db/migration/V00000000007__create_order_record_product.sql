@@ -2,7 +2,9 @@ create table order_record_product
 (
     id_order_record bigint not null,
     id_product bigint not null,
-    units integer not null
+    units double precision not null,
+    unit_price double precision not null,
+    amount double precision not null
 )
 WITHOUT OIDS;
 

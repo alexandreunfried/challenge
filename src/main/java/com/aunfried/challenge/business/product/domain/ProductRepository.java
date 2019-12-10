@@ -1,6 +1,7 @@
 package com.aunfried.challenge.business.product.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query("select count(p) from Product p where p.manufacturer.id = ?1")
     public Integer countByManufacturer(Long idManufacturer);
+	
+	@Query("select p.unitPrice from Product p where p.id = ?1")
+    public Optional<Double> findUnitPriceById(Long idProduct);
 	
 }

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.aunfried.challenge.business.consumer.domain.Consumer;
 import com.aunfried.challenge.business.delivery.domain.Delivery;
-import com.aunfried.challenge.business.orderrercordproduct.domain.OrderRercordProduct;
+import com.aunfried.challenge.business.orderrecordproduct.domain.OrderRecordProduct;
 import com.aunfried.challenge.business.payment.domain.Payment;
 
 import lombok.EqualsAndHashCode;
@@ -58,6 +58,6 @@ public class OrderRecord implements Serializable {
 	private Delivery delivery;
 	
 	@OneToMany(mappedBy = "orderRecord", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderRercordProduct> products;
+    private List<OrderRecordProduct> products;
 
 }
