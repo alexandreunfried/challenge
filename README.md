@@ -61,7 +61,7 @@ Resposta:
 - Inserção de novos fabricantes
 
 Solicitação:
-`POST localhost:10000/manufacturers`
+`POST localhost:10000/manufacturers`  
 Body:
 ```json
 {
@@ -72,7 +72,7 @@ Body:
 - Atualização de fabricante usando o seu identificador
 
 Solicitação:
-`PUT localhost:10000/manufacturers/2`
+`PUT localhost:10000/manufacturers/2`  
 Body:
 ```json
 {
@@ -142,7 +142,7 @@ Resposta:
 - Inserção de novos produtos
 
 Solicitação:
-`POST localhost:10000/products`
+`POST localhost:10000/products`  
 Body:
 ```json
 {
