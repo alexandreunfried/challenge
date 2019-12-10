@@ -97,28 +97,32 @@ public class OrderService {
 
 		List<OrderRecordProduct> orderRecordProducts = orderRecordProductService.getByIdOrderRecord(id);
 
-		orderDTO.setProducts(mapperOrderRecordProductToOrderRecordProductDTO(orderRecordProducts));
-		
+		orderDTO.setProducts(mapperToOrderRecordProductDTO(orderRecordProducts));
+
 		return orderDTO;
 	}
 
-	protected List<OrderRecordProductDTO> mapperOrderRecordProductToOrderRecordProductDTO(
-			List<OrderRecordProduct> orderRecordProducts) {
+	protected List<OrderRecordProductDTO> mapperToOrderRecordProductDTO(List<OrderRecordProduct> orderRecordProducts) {
 
 		List<OrderRecordProductDTO> products = new ArrayList<>();
 
-		orderRecordProducts.forEach(orderRecordProduct -> {
-			OrderRecordProductDTO orderRecordProductDTO = new OrderRecordProductDTO();
-			orderRecordProductDTO.setId(orderRecordProduct.getOrderRecordProductId().getIdProduct());
-			orderRecordProductDTO.setName(orderRecordProduct.getName());
-			orderRecordProductDTO.setUnits(orderRecordProduct.getUnits());
-			orderRecordProductDTO.setUnitPrice(orderRecordProduct.getUnitPrice());
-			orderRecordProductDTO.setAmount(orderRecordProduct.getAmount());
-
-			products.add(orderRecordProductDTO);
-		});
+		orderRecordProducts
+				.forEach(orderRecordProduct -> products.add(mapperToOrderRecordProductDTO(orderRecordProduct)));
 
 		return products;
+	}
+
+	protected OrderRecordProductDTO mapperToOrderRecordProductDTO(OrderRecordProduct orderRecordProduct) {
+
+		OrderRecordProductDTO orderRecordProductDTO = new OrderRecordProductDTO();
+
+		orderRecordProductDTO.setId(orderRecordProduct.getOrderRecordProductId().getIdProduct());
+		orderRecordProductDTO.setName(orderRecordProduct.getName());
+		orderRecordProductDTO.setUnits(orderRecordProduct.getUnits());
+		orderRecordProductDTO.setUnitPrice(orderRecordProduct.getUnitPrice());
+		orderRecordProductDTO.setAmount(orderRecordProduct.getAmount());
+
+		return orderRecordProductDTO;
 	}
 
 }

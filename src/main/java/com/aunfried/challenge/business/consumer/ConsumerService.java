@@ -28,13 +28,12 @@ public class ConsumerService {
 			consumer = new Consumer();
 		}
 
-		mapperConsumerCreateUpdateDTOToConsumer(consumer, consumerCreateUpdateDTO);
+		mergeConsumer(consumer, consumerCreateUpdateDTO);
 
 		return consumerRepository.save(consumer);
 	}
 
-	protected void mapperConsumerCreateUpdateDTOToConsumer(Consumer consumer,
-			ConsumerCreateUpdateDTO consumerCreateUpdateDTO) {
+	protected void mergeConsumer(Consumer consumer, ConsumerCreateUpdateDTO consumerCreateUpdateDTO) {
 		consumer.setName(consumerCreateUpdateDTO.getName());
 		consumer.setEmail(consumerCreateUpdateDTO.getEmail());
 		consumer.setPhone(consumerCreateUpdateDTO.getPhone());

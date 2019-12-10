@@ -59,7 +59,7 @@ public class ProductService {
 	public Long create(ProductCreateUpdateDTO productCreateUpdateDTO) {
 		Product product = new Product();
 
-		mapperProductCreateUpdateDTOToProduct(product, productCreateUpdateDTO);
+		mapperToProduct(product, productCreateUpdateDTO);
 
 		product = productRepository.save(product);
 		return product.getId();
@@ -75,7 +75,7 @@ public class ProductService {
 
 		Product product = productOptional.get();
 
-		mapperProductCreateUpdateDTOToProduct(product, productCreateUpdateDTO);
+		mapperToProduct(product, productCreateUpdateDTO);
 
 		return productRepository.save(product);
 	}
@@ -105,7 +105,7 @@ public class ProductService {
 
 	}
 
-	protected void mapperProductCreateUpdateDTOToProduct(Product product,
+	protected void mapperToProduct(Product product,
 			ProductCreateUpdateDTO productCreateUpdateDTO) {
 
 		Manufacturer manufacturer = manufacturerService.get(productCreateUpdateDTO.getIdManufacturer());
