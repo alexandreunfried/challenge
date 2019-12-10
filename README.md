@@ -6,14 +6,14 @@ A aplicação é uma API de produtos e pedidos de compras que possam ser confirm
 
 Para executar a API é necessário criar um banco de dados vazio no postgresql e substituir alguns dados no application.properties
 
-Porta que deseja rodar a aplicação:
+- Porta que deseja rodar a aplicação:
 `server.port=10000` 
 
-Endereço do banco de dados:
+- Endereço do banco de dados:
 `spring.datasource.url=jdbc:postgresql://localhost:5432/challenge?useUnicode=true&characterEncoding=UTF-8`
 Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco que criou
 
-Usuário e senha do banco de dados criado:
+- Usuário e senha do banco de dados criado:
 `spring.datasource.username=postgres`
 `spring.datasource.password=postgres`
 
@@ -24,12 +24,12 @@ Usuário e senha do banco de dados criado:
 
 - Listagem dos fabricantes cadastrados
 
-Solicitação:
+ - Solicitação:
 `GET localhost:10000/manufacturers?page=0&size=10`
 
 page = Número da página, size = Quantidade de resultados por página
 
-Resposta:
+ - Resposta:
 
 ```json
 [
@@ -46,10 +46,10 @@ Resposta:
 
 - Consulta dos detalhes de um fabricante usando o identificador
 
-Solicitação:
+ - Solicitação:
 `GET localhost:10000/manufacturers/2`
 
-Resposta:
+ - Resposta:
 
 ```json
 {
@@ -60,9 +60,9 @@ Resposta:
 
 - Inserção de novos fabricantes
 
-Solicitação:
+ - Solicitação:
 `POST localhost:10000/manufacturers`
-Body:
+ - Body:
 ```json
 {
   "name": "Quality farm goods",
@@ -71,16 +71,16 @@ Body:
 
 - Atualização de fabricante usando o seu identificador
 
-Solicitação:
+ - Solicitação:
 `PUT localhost:10000/manufacturers/2`
-Body:
+ - Body:
 ```json
 {
   "name": "Quality farm goods",
 }
 ```
 
-Resposta:
+ - Resposta:
 
 ```json
 {
@@ -91,7 +91,7 @@ Resposta:
 
 - Remoção de um fabricante
 
-Solicitação:
+ - Solicitação:
 `DELETE localhost:10000/manufacturers/2`
 
 ### Produtos
