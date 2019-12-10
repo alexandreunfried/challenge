@@ -195,6 +195,7 @@ Solicitação:
 - Cadastro de um pedido
 
 Solicitação:
+`POST localhost:10000/orders`
 
 ```json
 {
@@ -219,6 +220,9 @@ Solicitação:
 ```
 
 - Consulta de um pedido
+
+Solicitação:
+`GET localhost:10000/orders/2`
 
 Resposta:
 
@@ -254,6 +258,7 @@ Resposta:
     "email": "some@one.com"
   },
   "payment": {
+    "id": 12,
     "mode": "bank slip",
     "amount": 91.52,
     "installments": 3,
