@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aunfried.challenge.business.order.OrderService;
 import com.aunfried.challenge.business.order.dto.OrderCreateDTO;
-import com.aunfried.challenge.business.orderrecord.domain.OrderRecord;
+import com.aunfried.challenge.business.order.dto.OrderDTO;
 
 @RestController
 @RequestMapping("/orders")
@@ -23,8 +23,8 @@ public class OrderController {
 	private OrderService orderService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<OrderRecord> get(@PathVariable Long id) {
-		OrderRecord order = orderService.get(id);
+	public ResponseEntity<OrderDTO> get(@PathVariable Long id) {
+		OrderDTO order = orderService.get(id);
 
 		return ResponseEntity.ok(order);
 	}

@@ -1,5 +1,7 @@
 package com.aunfried.challenge.business.order;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,12 @@ import com.aunfried.challenge.business.consumer.domain.Consumer;
 import com.aunfried.challenge.business.delivery.DeliveryService;
 import com.aunfried.challenge.business.delivery.domain.Delivery;
 import com.aunfried.challenge.business.order.dto.OrderCreateDTO;
+import com.aunfried.challenge.business.order.dto.OrderDTO;
 import com.aunfried.challenge.business.orderrecord.domain.OrderRecord;
 import com.aunfried.challenge.business.orderrecord.domain.OrderRecordRepository;
 import com.aunfried.challenge.business.orderrecordproduct.OrderRecordProductService;
+import com.aunfried.challenge.business.orderrecordproduct.domain.OrderRecordProduct;
+import com.aunfried.challenge.business.orderrecordproduct.dto.OrderRecordProductDTO;
 import com.aunfried.challenge.business.payment.PaymentService;
 import com.aunfried.challenge.business.payment.domain.Payment;
 import com.aunfried.challenge.business.product.ProductService;
@@ -61,7 +66,7 @@ public class OrderService {
 		orderRecord.setConsumer(consumer);
 
 		Double amount = productService.getAmount(orderCreateDTO.getProducts());
-		
+
 		Payment payment = paymentService.create(orderCreateDTO.getPayment(), amount);
 		orderRecord.setPayment(payment);
 
@@ -70,20 +75,50 @@ public class OrderService {
 
 		orderRecord = orderRecordRepository.save(orderRecord);
 
-		orderRecordProductService.createProductsOrder(orderRecord, orderCreateDTO.getProducts());
+		orderRecordProductService.createProductsOrder(orderRecord.getId(), orderCreateDTO.getProducts());
 
 		return orderRecord.getId();
 	}
-	
+
 	@Transactional
-	public OrderRecord get(Long id) {
+	public OrderDTO get(Long id) {
 		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
 
 		if (!orderOptional.isPresent()) {
 			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
 		}
 
-		return orderOptional.get();
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setId(orderOptional.get().getId());
+		orderDTO.setStatus(orderOptional.get().getStatus());
+		orderDTO.setConsumer(orderOptional.get().getConsumer());
+		orderDTO.setPayment(orderOptional.get().getPayment());
+		orderDTO.setDelivery(orderOptional.get().getDelivery());
+
+		List<OrderRecordProduct> orderRecordProducts = orderRecordProductService.getByIdOrderRecord(id);
+
+		orderDTO.setProducts(mapperOrderRecordProductToOrderRecordProductDTO(orderRecordProducts));
+		
+		return orderDTO;
+	}
+
+	protected List<OrderRecordProductDTO> mapperOrderRecordProductToOrderRecordProductDTO(
+			List<OrderRecordProduct> orderRecordProducts) {
+
+		List<OrderRecordProductDTO> products = new ArrayList<>();
+
+		orderRecordProducts.forEach(orderRecordProduct -> {
+			OrderRecordProductDTO orderRecordProductDTO = new OrderRecordProductDTO();
+			orderRecordProductDTO.setId(orderRecordProduct.getOrderRecordProductId().getIdProduct());
+			orderRecordProductDTO.setName(orderRecordProduct.getName());
+			orderRecordProductDTO.setUnits(orderRecordProduct.getUnits());
+			orderRecordProductDTO.setUnitPrice(orderRecordProduct.getUnitPrice());
+			orderRecordProductDTO.setAmount(orderRecordProduct.getAmount());
+
+			products.add(orderRecordProductDTO);
+		});
+
+		return products;
 	}
 
 }

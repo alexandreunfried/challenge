@@ -1,7 +1,5 @@
 package com.aunfried.challenge.business.product;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +17,7 @@ import com.aunfried.challenge.business.product.dto.ProductCreateUpdateDTO;
 import com.aunfried.challenge.business.product.dto.SimpleProductDTO;
 import com.aunfried.challenge.config.exception.ErrorCode;
 import com.aunfried.challenge.config.exception.NotFoundException;
+import com.aunfried.challenge.util.UtilDouble;
 
 @Service
 public class ProductService {
@@ -93,6 +92,18 @@ public class ProductService {
 
 		productRepository.delete(product);
 	}
+	
+	@Transactional(readOnly = true)
+	public Double getAmount(List<OrderRecordProductCreateDTO> products) {
+		Double amount = 0.0;
+
+		for (int i = 0; i < products.size(); i++) {
+			amount += getUnitPrice(products.get(i).getId()) * products.get(i).getUnits();
+		}
+		
+		return UtilDouble.getMonetaryDouble(amount);
+
+	}
 
 	protected void mapperProductCreateUpdateDTOToProduct(Product product,
 			ProductCreateUpdateDTO productCreateUpdateDTO) {
@@ -103,21 +114,9 @@ public class ProductService {
 		product.setDescription(productCreateUpdateDTO.getDescription());
 		product.setBarcode(productCreateUpdateDTO.getBarcode());
 		product.setManufacturer(manufacturer);
-		product.setUnitPrice(productCreateUpdateDTO.getUnitPrice());
-
-	}
-
-	@Transactional(readOnly = true)
-	public Double getAmount(List<OrderRecordProductCreateDTO> products) {
-		Double amount = 0.0;
-
-		for (int i = 0; i < products.size(); i++) {
-			amount += getUnitPrice(products.get(i).getId()) * products.get(i).getUnits();
-		}
 		
-		return BigDecimal.valueOf(amount)
-			    .setScale(2, RoundingMode.HALF_DOWN)
-			    .doubleValue();
+		Double unitPrice = UtilDouble.getMonetaryDouble(productCreateUpdateDTO.getUnitPrice());
+		product.setUnitPrice(unitPrice);
 
 	}
 
