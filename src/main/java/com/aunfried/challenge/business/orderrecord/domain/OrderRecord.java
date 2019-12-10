@@ -1,9 +1,7 @@
 package com.aunfried.challenge.business.orderrecord.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 import com.aunfried.challenge.business.consumer.domain.Consumer;
 import com.aunfried.challenge.business.delivery.domain.Delivery;
-import com.aunfried.challenge.business.orderrecordproduct.domain.OrderRecordProduct;
 import com.aunfried.challenge.business.payment.domain.Payment;
 
 import lombok.EqualsAndHashCode;
@@ -56,8 +52,5 @@ public class OrderRecord implements Serializable {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_delivery", referencedColumnName = "mode")
 	private Delivery delivery;
-	
-	@OneToMany(mappedBy = "orderRecord", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderRecordProduct> products;
 
 }

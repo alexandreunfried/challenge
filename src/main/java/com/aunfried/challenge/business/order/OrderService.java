@@ -1,5 +1,7 @@
 package com.aunfried.challenge.business.order;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import com.aunfried.challenge.business.orderrecordproduct.OrderRecordProductServ
 import com.aunfried.challenge.business.payment.PaymentService;
 import com.aunfried.challenge.business.payment.domain.Payment;
 import com.aunfried.challenge.business.product.ProductService;
+import com.aunfried.challenge.config.exception.ErrorCode;
+import com.aunfried.challenge.config.exception.NotFoundException;
 
 @Service
 public class OrderService {
@@ -69,6 +73,17 @@ public class OrderService {
 		orderRecordProductService.createProductsOrder(orderRecord, orderCreateDTO.getProducts());
 
 		return orderRecord.getId();
+	}
+	
+	@Transactional
+	public OrderRecord get(Long id) {
+		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
+
+		if (!orderOptional.isPresent()) {
+			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
+		}
+
+		return orderOptional.get();
 	}
 
 }

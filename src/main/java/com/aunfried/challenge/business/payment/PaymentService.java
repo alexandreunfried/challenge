@@ -1,5 +1,8 @@
 package com.aunfried.challenge.business.payment;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +23,14 @@ public class PaymentService {
 		payment.setInstallments(paymentCreateDTO.getInstallments());
 		payment.setMode(paymentCreateDTO.getMode());
 		payment.setAmount(amount);
-		payment.setInstallmentValue(amount / (1.0 * paymentCreateDTO.getInstallments()));
+		
+		Double intallmentValue = amount / (1.0 * paymentCreateDTO.getInstallments());
+		
+		intallmentValue = BigDecimal.valueOf(intallmentValue)
+			    .setScale(2, RoundingMode.HALF_DOWN)
+			    .doubleValue();
+		
+		payment.setInstallmentValue(intallmentValue);
 		
 		return paymentRepository.save(payment);
 	}

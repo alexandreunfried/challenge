@@ -1,5 +1,7 @@
 package com.aunfried.challenge.business.product;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,8 +114,11 @@ public class ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			amount += getUnitPrice(products.get(i).getId()) * products.get(i).getUnits();
 		}
+		
+		return BigDecimal.valueOf(amount)
+			    .setScale(2, RoundingMode.HALF_DOWN)
+			    .doubleValue();
 
-		return amount;
 	}
 
 }
