@@ -1,8 +1,6 @@
 # API de produtos e pedidos de compras
 
-A aplicação é uma API de produtos e pedidos de compras que possam ser confirmados e cancelados. 
-
-----------
+A aplicação é uma API de produtos e pedidos de compras que possam ser confirmados e cancelados.  
 
 Para executar a API é necessário criar um banco de dados vazio no postgresql e substituir alguns dados no application.properties
 
@@ -13,11 +11,10 @@ Para executar a API é necessário criar um banco de dados vazio no postgresql e
 `spring.datasource.url=jdbc:postgresql://localhost:5432/challenge?useUnicode=true&characterEncoding=UTF-8`  
 Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco que criou  
 
-- Usuário e senha do banco de dados criado:
-`spring.datasource.username=postgres`
+- Usuário e senha do banco de dados criado:  
+`spring.datasource.username=postgres`  
 `spring.datasource.password=postgres`
 
-----------
 ## Abaixo estão relacionados os endpoints da aplicação e alguns exemplos de resposta
 
 ### Fabricantes
@@ -25,9 +22,10 @@ Trocar **localhost:5432/challenge** pelo endereço do banco de dados em branco q
 - Listagem dos fabricantes cadastrados
 
 Solicitação:
-`GET localhost:10000/manufacturers?page=0&size=10`
+`GET localhost:10000/manufacturers?page=0&size=10`  
 
-page = Número da página, size = Quantidade de resultados por página
+page = Número da página  
+size = Quantidade de resultados por página  
 
 Resposta:
 
@@ -99,9 +97,10 @@ Solicitação:
 - Listagem dos produtos cadastrados
 
 Solicitação:
-`GET localhost:10000/products?page=0&size=10`
+`GET localhost:10000/products?page=0&size=10`  
 
-page = Número da página, size = Quantidade de resultados por página
+page = Número da página  
+size = Quantidade de resultados por página  
 
 Resposta:
 
@@ -143,6 +142,7 @@ Resposta:
 
 Solicitação:
 `POST localhost:10000/products`  
+
 Body:
 ```json
 {
@@ -157,7 +157,8 @@ Body:
 - Atualização de produtos usando o seu identificador
 
 Solicitação:
-`PUT localhost:10000/products/25`
+`PUT localhost:10000/products/25`  
+
 Body:
 ```json
 {
