@@ -52,13 +52,7 @@ public class ManufacturerService {
 
 	@Transactional
 	public Manufacturer update(Long id, ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO) {
-		Optional<Manufacturer> manufacturerOptional = manufacturerRepository.findById(id);
-
-		if (!manufacturerOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Fabricante não encontrado");
-		}
-
-		Manufacturer manufacturer = manufacturerOptional.get();
+		Manufacturer manufacturer = get(id);
 		manufacturer.setName(manufacturerCreateUpdateDTO.getName());
 
 		return manufacturerRepository.save(manufacturer);
@@ -66,19 +60,13 @@ public class ManufacturerService {
 	
 	@Transactional
 	public void delete(Long id) {
-		Optional<Manufacturer> manufacturerOptional = manufacturerRepository.findById(id);
-
-		if (!manufacturerOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Fabricante não encontrado");
-		}
+		Manufacturer manufacturer = get(id);
 		
 		Integer coutProductsByManufacturer = productRepository.countByManufacturer(id);
 		
 		if(coutProductsByManufacturer > 0) {
 			throw new BadRequestException(ErrorCode.BAD_REQUEST, "Existem produtos com este fabricante");
 		}
-
-		Manufacturer manufacturer = manufacturerOptional.get();
 
 		manufacturerRepository.delete(manufacturer);
 	}

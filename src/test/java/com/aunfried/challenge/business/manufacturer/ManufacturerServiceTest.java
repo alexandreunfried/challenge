@@ -28,6 +28,7 @@ class ManufacturerServiceTest {
 	@Test
 	@Transactional
 	void testGet() {
+		
 		Manufacturer manufacturer = manufacturerService.get(1L);
 		assertNotNull(manufacturer);
 		assertEquals(1L, manufacturer.getId());
@@ -56,6 +57,9 @@ class ManufacturerServiceTest {
 		List<Manufacturer> manufacturers = manufacturerService.list(0, 10);
 		assertNotNull(manufacturers);
 		assertEquals(2, manufacturers.size());
+		assertEquals(1, manufacturers.get(0).getId());
+		assertEquals("Made in Grill", manufacturers.get(0).getName());
+		assertEquals(2, manufacturers.get(1).getId());
 
 		manufacturers = manufacturerService.list(1, 10);
 		assertNotNull(manufacturers);
@@ -64,12 +68,14 @@ class ManufacturerServiceTest {
 		manufacturers = manufacturerService.list(1, 1);
 		assertNotNull(manufacturers);
 		assertEquals(1, manufacturers.size());
+		assertEquals(2, manufacturers.get(0).getId());
 
 	}
 
 	@Test
 	@Transactional
 	void testCreate() {
+		
 		ManufacturerCreateUpdateDTO manufacturerCreateUpdateDTO = new ManufacturerCreateUpdateDTO();
 		manufacturerCreateUpdateDTO.setName("Burguer King");
 
@@ -124,15 +130,25 @@ class ManufacturerServiceTest {
 		Manufacturer manufacturer = manufacturerService.get(2L);
 		assertNotNull(manufacturer);
 		
-		manufacturerService.delete(2L);
+		manufacturerService.delete(1L);
 				
 		try {
-			manufacturerService.get(2L);
+			manufacturerService.get(1L);
 			fail("expected exception not found");
 		} catch (BaseException ex) {
 			assertEquals(ErrorCode.NOT_FOUND, ex.getErrorCode());
 		} catch (Exception ex) {
 			fail("expected exception not found");
+		}
+		
+		try {
+			manufacturerService.delete(2L);
+			fail("expected exception bad request");
+		} catch (BaseException ex) {
+			assertEquals(ErrorCode.BAD_REQUEST, ex.getErrorCode());
+			assertEquals("Existem produtos com este fabricante", ex.getMessage());
+		} catch (Exception ex) {
+			fail("expected exception bad request");
 		}
 		
 	}

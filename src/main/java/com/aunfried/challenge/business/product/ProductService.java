@@ -59,7 +59,7 @@ public class ProductService {
 	public Long create(ProductCreateUpdateDTO productCreateUpdateDTO) {
 		Product product = new Product();
 
-		mapperToProduct(product, productCreateUpdateDTO);
+		mergeToProduct(product, productCreateUpdateDTO);
 
 		product = productRepository.save(product);
 		return product.getId();
@@ -67,28 +67,16 @@ public class ProductService {
 
 	@Transactional
 	public Product update(Long id, ProductCreateUpdateDTO productCreateUpdateDTO) {
-		Optional<Product> productOptional = productRepository.findById(id);
+		Product product = get(id);
 
-		if (!productOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Produto não encontrado");
-		}
-
-		Product product = productOptional.get();
-
-		mapperToProduct(product, productCreateUpdateDTO);
+		mergeToProduct(product, productCreateUpdateDTO);
 
 		return productRepository.save(product);
 	}
 
 	@Transactional
 	public void delete(Long id) {
-		Optional<Product> productOptional = productRepository.findById(id);
-
-		if (!productOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Produto não encontrado");
-		}
-
-		Product product = productOptional.get();
+		Product product = get(id);
 
 		productRepository.delete(product);
 	}
@@ -105,7 +93,7 @@ public class ProductService {
 
 	}
 
-	protected void mapperToProduct(Product product,
+	protected void mergeToProduct(Product product,
 			ProductCreateUpdateDTO productCreateUpdateDTO) {
 
 		Manufacturer manufacturer = manufacturerService.get(productCreateUpdateDTO.getIdManufacturer());

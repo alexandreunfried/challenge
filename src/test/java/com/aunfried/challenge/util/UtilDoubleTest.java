@@ -13,6 +13,7 @@ public class UtilDoubleTest {
 	
 	@Test
 	public void testGetMonetaryDouble() {
+		
 		assertEquals(0.0, UtilDouble.getMonetaryDouble(0.0));
 		assertEquals(1.5, UtilDouble.getMonetaryDouble(1.5));
 		assertEquals(1.5, UtilDouble.getMonetaryDouble(1.50));

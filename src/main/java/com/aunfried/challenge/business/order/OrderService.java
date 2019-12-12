@@ -81,19 +81,15 @@ public class OrderService {
 	}
 
 	@Transactional(readOnly=true)
-	public OrderDTO get(Long id) {
-		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
-
-		if (!orderOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
-		}
+	public OrderDTO get(Long id) {		
+		OrderRecord orderRecord = getOrderRecord(id);
 
 		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setId(orderOptional.get().getId());
-		orderDTO.setStatus(orderOptional.get().getStatus());
-		orderDTO.setConsumer(orderOptional.get().getConsumer());
-		orderDTO.setPayment(orderOptional.get().getPayment());
-		orderDTO.setDelivery(orderOptional.get().getDelivery());
+		orderDTO.setId(orderRecord.getId());
+		orderDTO.setStatus(orderRecord.getStatus());
+		orderDTO.setConsumer(orderRecord.getConsumer());
+		orderDTO.setPayment(orderRecord.getPayment());
+		orderDTO.setDelivery(orderRecord.getDelivery());
 
 		List<OrderRecordProduct> orderRecordProducts = orderRecordProductService.getByIdOrderRecord(id);
 
@@ -104,28 +100,29 @@ public class OrderService {
 	
 	@Transactional
 	public void cancel(Long id) {
-		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
-
-		if (!orderOptional.isPresent()) {
-			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
-		}
-
-		orderOptional.get().setStatus(Const.STATUS_CANCELED);
+		OrderRecord orderRecord = getOrderRecord(id);
+		orderRecord.setStatus(Const.STATUS_CANCELED);
 		
-		orderRecordRepository.save(orderOptional.get());
+		orderRecordRepository.save(orderRecord);
 	}
 	
 	@Transactional
 	public void confirm(Long id) {
+		OrderRecord orderRecord = getOrderRecord(id);
+
+		orderRecord.setStatus(Const.STATUS_CONFIRMED);
+		
+		orderRecordRepository.save(orderRecord);
+	}
+	
+	protected OrderRecord getOrderRecord(Long id) {
 		Optional<OrderRecord> orderOptional = orderRecordRepository.findById(id);
 
 		if (!orderOptional.isPresent()) {
 			throw new NotFoundException(ErrorCode.NOT_FOUND, "Pedido não encontrado");
 		}
-
-		orderOptional.get().setStatus(Const.STATUS_CONFIRMED);
 		
-		orderRecordRepository.save(orderOptional.get());
+		return orderOptional.get();
 	}
 
 	protected List<OrderRecordProductDTO> mapperToOrderRecordProductDTO(List<OrderRecordProduct> orderRecordProducts) {
